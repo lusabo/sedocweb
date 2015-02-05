@@ -3,7 +3,6 @@ package entity;
 import static javax.persistence.EnumType.STRING;
 import static javax.persistence.GenerationType.SEQUENCE;
 import static util.Constants.ABBREVIATION_SIZE;
-import static util.Constants.ENUM_SIZE;
 import static util.Constants.NAME_SIZE;
 
 import java.io.Serializable;
@@ -44,11 +43,9 @@ public class Department implements Serializable {
 	@Index(name = "IDX_DEPARTMENT_ABBREVIATION")
 	private String abbreviation;
 
-	@NotBlank
-	@Enumerated(STRING)
-	@Column(name = "STATUS", length = ENUM_SIZE)
-	@Index(name = "IDX_DEPARTMENT_STATUS")
-	private StatusType status;
+	@Column(name = "ACTIVE", nullable = false)
+	@Index(name = "IDX_DEPARTMENT_ACTIVE")
+	private boolean active = true;
 
 	@Override
 	public int hashCode() {
@@ -99,12 +96,12 @@ public class Department implements Serializable {
 		this.abbreviation = abbreviation;
 	}
 
-	public StatusType getStatus() {
-		return status;
+	public Boolean getactive() {
+		return active;
 	}
 
-	public void setStatus(StatusType status) {
-		this.status = status;
+	public void setActive(Boolean active) {
+		this.active = active;
 	}
 
 }

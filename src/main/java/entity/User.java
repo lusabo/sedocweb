@@ -3,7 +3,6 @@ package entity;
 import static javax.persistence.EnumType.STRING;
 import static javax.persistence.GenerationType.SEQUENCE;
 import static util.Constants.ABBREVIATION_SIZE;
-import static util.Constants.ENUM_SIZE;
 import static util.Constants.HASH_SIZE;
 import static util.Constants.NAME_SIZE;
 
@@ -20,6 +19,7 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Size;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.annotations.Index;
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -61,14 +61,17 @@ public class User implements Principal, Serializable {
 	@Index(name = "IDX_USER_INITIALS")
 	private String initials;
 
-	@NotBlank
-	@Enumerated(STRING)
-	@Column(name = "STATUS", length = ENUM_SIZE)
-	@Index(name = "IDX_USER_STATUS")
-	private StatusType status;
+	@Column(name = "ACTIVE", nullable = false)
+	@Index(name = "IDX_USER_ACTIVE")
+	private boolean active = true;
+
+	@JsonIgnore
+	@Size(max = HASH_SIZE)
+	@Column(name = "ACTIVATION_TOKEN")
+	private String activationToken;
 
 	/*
-	 * Adicionar coluna de setor Adicionar status
+	 * Adicionar coluna de setor
 	 */
 
 	public static User getLoggedIn() {
@@ -140,12 +143,20 @@ public class User implements Principal, Serializable {
 		this.initials = initials;
 	}
 
-	public StatusType getStatus() {
-		return status;
+	public Boolean getActive() {
+		return active;
 	}
 
-	public void setStatus(StatusType status) {
-		this.status = status;
+	public void setActive(Boolean active) {
+		this.active = active;
+	}
+
+	public String getActivationToken() {
+		return activationToken;
+	}
+
+	public void setActivationToken(String activationToken) {
+		this.activationToken = activationToken;
 	}
 
 }
