@@ -10,8 +10,8 @@
 	</rule>
 
 	<rule>
-		<from>^/home$</from>
-		<to>/home.html</to>
+		<from>^/logon$</from>
+		<to>/logon/login.html</to>
 	</rule>
 
 	<rule>
