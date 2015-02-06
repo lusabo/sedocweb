@@ -11,7 +11,7 @@
 
 	<rule>
 		<from>^/logon$</from>
-		<to>/logon/login.html</to>
+		<to>/login.html</to>
 	</rule>
 
 	<rule>

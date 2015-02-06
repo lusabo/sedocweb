@@ -1,17 +1,19 @@
 <!doctype html>
 <html>
 <head>
-	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans">
+	<meta charset="UTF-8" />
+	<title>SedocWeb 2.0</title>
+	<link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 	<style>
 	/* CSS used here will be applied after bootstrap.css */
 	body {
-		background: url('/sedocweb/assets/img/background.jpg') no-repeat center center fixed;
+		background: url('/sedocweb/img/background.jpg') no-repeat center center fixed;
 		-webkit-background-size: cover;
 		-moz-background-size: cover;
 		-o-background-size: cover;
 		background-size: cover;
-		font-family: 'Open Sans', sans-serif;
+		font-family: 'Lato', sans-serif;
 		margin-top: 100px;
 	}
 	
@@ -32,6 +34,7 @@
 	</style>
 </head>
 <body>
+	<input id="contextPath" type="hidden" value="#{request.contextPath}" />
 	<div class="container">
 		<div class="row">
 			<div class="col-md-7">
@@ -70,8 +73,16 @@
 		</div>
 	</div>
 
+	<!-- lib's -->
 	<script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
 	<script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+	
+	<!-- proxies -->
+	<script src="js/proxy/logon.js"></script>
+	
+	<!-- controllers -->
+	<script src="js/controller/app.js"></script>
+	<script src="js/controller/login.js"></script>
 
 </body>
 </html>
