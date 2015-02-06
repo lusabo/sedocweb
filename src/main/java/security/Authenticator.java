@@ -41,7 +41,7 @@ public class Authenticator extends TokenAuthenticator {
 		boolean result = false;
 		if (user.getActivationToken() != null) {
 			ActivationSession session = Beans.getReference(ActivationSession.class);
-			String hash = Passwords.hash(session.getToken(), user.getLogin());
+			String hash = Passwords.hash(session.getToken(), user.getUsername());
 			result = user.getActivationToken().equals(hash);
 		}
 

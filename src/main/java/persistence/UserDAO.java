@@ -26,23 +26,25 @@ public class UserDAO extends JPACrud<User, Integer> {
 	// }
 	// }
 
-	public User loadForAuthentication(String login) {
+	public User loadForAuthentication(String username) {
+		System.out.println("#### loadForAuthentication 1 ####");
 		StringBuffer jpql = new StringBuffer();
 		jpql.append(" select ");
 		jpql.append("    new User( ");
 		jpql.append("        u.id, ");
-		jpql.append("        u.login, ");
+		jpql.append("        u.username, ");
 		jpql.append("        u.password, ");
 		jpql.append("        u.name, ");
 		jpql.append("        u.initials, ");
-		jpql.append("        u.status ");
+		jpql.append("        u.active, ");
+		jpql.append("        u.activationToken ");
 		jpql.append(" 	     ) ");
 		jpql.append("   from User u");
-		jpql.append("  where u.status = 'active' ");
-		jpql.append("    and u.login = :login");
+		jpql.append("  where u.username = :username ");
+		jpql.append("    and u.active is true");
 
 		TypedQuery<User> query = getEntityManager().createQuery(jpql.toString(), User.class);
-		query.setParameter("login", login);
+		query.setParameter("username", username);
 
 		User result;
 		try {

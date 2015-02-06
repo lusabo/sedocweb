@@ -1,6 +1,5 @@
 package entity;
 
-import static javax.persistence.EnumType.STRING;
 import static javax.persistence.GenerationType.SEQUENCE;
 import static util.Constants.ABBREVIATION_SIZE;
 import static util.Constants.HASH_SIZE;
@@ -11,7 +10,6 @@ import java.security.Principal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
@@ -27,7 +25,7 @@ import br.gov.frameworkdemoiselle.security.SecurityContext;
 import br.gov.frameworkdemoiselle.util.Beans;
 
 @Entity
-@Table(name = "USER_ACCOUNT", uniqueConstraints = { @UniqueConstraint(name = "UK_USER_LOGIN", columnNames = { "LOGIN" }) })
+@Table(name = "USER_ACCOUNT", uniqueConstraints = { @UniqueConstraint(name = "UK_USER_USERNAME", columnNames = { "USER_NAME" }) })
 public class User implements Principal, Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -40,9 +38,9 @@ public class User implements Principal, Serializable {
 
 	@NotBlank
 	@Size(max = ABBREVIATION_SIZE)
-	@Column(name = "LOGIN")
-	@Index(name = "IDX_USER_LOGIN")
-	private String login;
+	@Column(name = "USER_NAME")
+	@Index(name = "IDX_USER_USERNAME")
+	private String username;
 
 	@NotBlank
 	@Size(max = HASH_SIZE)
@@ -73,6 +71,20 @@ public class User implements Principal, Serializable {
 	/*
 	 * Adicionar coluna de setor
 	 */
+
+	public User() {
+	}
+
+	public User(Integer id, String username, String password, String name, String initials, boolean active,
+			String activationToken) {
+		setId(id);
+		setUsername(username);
+		setPassword(password);
+		setName(name);
+		setInitials(initials);
+		setActive(active);
+		setActivationToken(activationToken);
+	}
 
 	public static User getLoggedIn() {
 		return (User) Beans.getReference(SecurityContext.class).getUser();
@@ -111,12 +123,12 @@ public class User implements Principal, Serializable {
 		this.id = id;
 	}
 
-	public String getLogin() {
-		return login;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setLogin(String login) {
-		this.login = login;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getPassword() {

@@ -19,11 +19,11 @@ public class TempREST {
 		newUser("admin", "admin", "Administrador", "adm", true);
 	}
 
-	private User newUser(String login, String password, String name, String initials, boolean active) {
+	private User newUser(String username, String password, String name, String initials, boolean active) {
 
 		User user = new User();
-		user.setLogin(login);
-		user.setPassword(Passwords.hash(password, login));
+		user.setUsername(username);
+		user.setPassword(Passwords.hash(password, username));
 		user.setName(name);
 		user.setInitials(initials);
 		user.setActive(active);
