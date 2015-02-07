@@ -1,9 +1,9 @@
 var App = {
 
-//	tokenKey : "Token",
-//
-//	userKey : "User",
-//
+	tokenKey : "Token",
+
+	userKey : "User",
+
 //	savedLocationKey : "Saved Location",
 //
 //	restoreSavedLocation : function() {
@@ -19,26 +19,26 @@ var App = {
 //		sessionStorage.removeItem(this.savedLocationKey);
 //	},
 //
-//	setLoggedInUser : function($user) {
-//		sessionStorage.setItem(this.userKey, JSON.stringify($user));
-//	},
+	setLoggedInUser : function($user) {
+		sessionStorage.setItem(this.userKey, JSON.stringify($user));
+	},
 //
 //	getLoggedInUser : function() {
 //		return JSON.parse(sessionStorage.getItem(this.userKey));
 //	},
 //
-//	clearAuthentication : function() {
-//		sessionStorage.removeItem(this.userKey);
-//		sessionStorage.removeItem(this.tokenKey);
-//	},
+	clearAuthentication : function() {
+		sessionStorage.removeItem(this.userKey);
+		sessionStorage.removeItem(this.tokenKey);
+	},
 //
 //	getToken : function() {
 //		return sessionStorage.getItem(this.tokenKey);
 //	},
 //
-//	setToken : function(token) {
-//		sessionStorage.setItem(this.tokenKey, token);
-//	},
+	setToken : function(token) {
+		sessionStorage.setItem(this.tokenKey, token);
+	},
 //
 //	isLoggedIn : function() {
 //		return App.getToken() != null;
@@ -52,9 +52,9 @@ var App = {
 //		return location.protocol + "//" + location.host + this.getContextPath();
 //	},
 //
-//	getContextPath : function() {
-//		return $("#contextPath").val();
-//	},
+	getContextPath : function() {
+		return "sedocweb";
+	},
 //
 //	getUrlParameterByName : function($name) {
 //		$name = $name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
@@ -62,50 +62,48 @@ var App = {
 //		return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 //	},
 //
-//	handle401 : function($request) {
-//		this.clearAuthentication();
-//		this.saveLocation(location.href);
-//		location.href = App.getContextPath() + "/login";
-//	},
-//
-//	handle422 : function($request) {
-//		$($("form input, form select, form textarea").get().reverse()).each(function() {
-//			var id = $(this).attr('id');
-//			var messages = [];
-//
-//			$.each($request.responseJSON, function(index, value) {
-//				var aux = value.property ? value.property : "global";
-//
-//				if (id == aux) {
-//					messages.push(value.message);
-//					return;
-//				}
-//			});
-//
-//			var message = $("#" + id.replace(".", "\\.") + "-message");
-//
-//			if (messages.length > 1) {
-//				var ul = message.children("ul");
-//				ul.empty();
-//
-//				while (messages.length > 0) {
-//					ul.append("<li>" + messages.pop() + "</li>");
-//				}
-//
-//				message.show();
-//				console.log($(this));
-//
-//				$(this).focus();
-//
-//			} else if (messages.length == 1) {
-//				message.html(messages.pop()).show();
-//				$(this).focus();
-//
-//			} else {
-//				message.hide();
-//			}
-//		});
-//	},
+	handle401 : function($request) {
+		this.clearAuthentication();
+		this.saveLocation(location.href);
+		location.href = App.getContextPath() + "/login";
+	},
+
+	handle422 : function(request) {
+		
+		$($("form input, form select, form textarea").get().reverse()).each(function() {
+			var id = $(this).attr('id');
+			
+			var messages = [];
+
+			$.each(request.responseJSON, function(index, value) {
+				var aux = value.property ? value.property : "global";
+				if (id === aux) {
+					messages.push(value.message);
+					return;
+				}
+			});
+			
+			var message = $("#" + id + "-message");
+			
+			if (messages.length > 1) {
+				var ul = message.children("ul");
+				ul.empty();
+
+				while (messages.length > 0) {
+					ul.append("<li>" + messages.pop() + "</li>");
+				}
+
+				message.show();
+				$(this).focus();
+
+			} else if (messages.length === 1) {
+				message.html(messages.pop()).show();
+				$(this).focus();
+			} else {
+				message.hide();
+			}
+		});
+	},
 //
 //	loadDateCombos : function($day, $month, $year) {
 //		for (i = 1; i <= 31; i++) {
@@ -141,17 +139,17 @@ var App = {
 //		}
 //	}
 };
-//
-//$.ajaxSetup({
-//	error : function($request) {
-//		switch ($request.status) {
-//			case 401:
-//				App.handle401($request);
-//				break;
-//
-//			case 422:
-//				App.handle422($request);
-//				break;
-//		}
-//	}
-//});
+
+$.ajaxSetup({
+	error : function($request) {
+		switch ($request.status) {
+			case 401:
+				App.handle401($request);
+				break;
+
+			case 422:
+				App.handle422($request);
+				break;
+		}
+	}
+});

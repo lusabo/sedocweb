@@ -34,41 +34,44 @@
 	</style>
 </head>
 <body>
-	<input id="contextPath" type="hidden" value="#{request.contextPath}" />
 	<div class="container">
 		<div class="row">
 			<div class="col-md-7">
 				<h1>SedocWeb 2.0</h1>
 			</div>
 			<div class="col-md-4">
-				<div class="panel panel-default">
+				<div class="panel">
 					<div style="padding-top: 30px" class="panel-body">
-						<form class="form-horizontal" role="form">
+						<form class="form" role="form">
 							
-							<div style="margin-bottom: 25px" class="input-group">
-								<span class="input-group-addon">
-									<span class="glyphicon glyphicon-user"></span>
-								</span>
-								<input id="login" type="text" class="form-control" placeholder="Digite seu login">
+							<div class="form-group">
+								<div class="input-group">
+									<span class="input-group-addon">
+										<span class="glyphicon glyphicon-user"></span>
+									</span>
+									<input id="username" type="text" class="form-control" placeholder="Digite seu login" autofocus="autofocus">
+								</div>
+								<span id="username-message" class="label label-danger" hidden="true"></span>
 							</div>
 							
-							<div style="margin-bottom: 25px" class="input-group">
-								<span class="input-group-addon">
-									<span class="glyphicon glyphicon-lock"></span>
-								</span>
-								<input id="password" type="text" class="form-control" placeholder="Digite sua senha">
+							<div class="form-group">
+								<div class="input-group">
+									<span class="input-group-addon">
+										<span class="glyphicon glyphicon-lock"></span>
+									</span>
+									<input id="password" type="password" class="form-control" placeholder="Digite sua senha" autofocus="autofocus">
+								</div>
+								<span id="password-message" class="label label-danger" hidden="true"></span>
 							</div>
 							
 							<div class="form-group last">
-								<div class="col-sm-12">
-									<button type="submit" class="btn btn-success">Entrar</button>
-								</div>
+								<button type="submit" class="btn btn-success" autofocus="autofocus">Entrar</button>
 							</div>
 							
 						</form>
 					</div>
-					<div class="panel-footer" hidden="true"></div>
 				</div>
+				<div id="global-message" class="alert alert-danger" hidden="true" role="alert"></div>
 			</div>
 		</div>
 	</div>
@@ -77,12 +80,14 @@
 	<script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
 	<script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 	
-	<!-- proxies -->
-	<script src="js/proxy/logon.js"></script>
-	
 	<!-- controllers -->
 	<script src="js/controller/app.js"></script>
 	<script src="js/controller/login.js"></script>
+	
+	<!-- proxies -->
+	<script src="js/proxy/logon.js"></script>
+	
+	
 
 </body>
 </html>
