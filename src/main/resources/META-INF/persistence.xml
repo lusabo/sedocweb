@@ -7,6 +7,8 @@
 
 		<class>entity.Department</class>
 		<class>entity.User</class>
+		<class>entity.Event</class>
+		<class>entity.Agenda</class>
 		
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 
