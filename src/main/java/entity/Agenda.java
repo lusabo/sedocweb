@@ -41,6 +41,12 @@ public class Agenda implements Serializable {
 	@Column(name = "PERMISSION", length = 1)
 	@Enumerated(STRING)
 	private Permission permission;
+	
+	public Agenda(Event event, User user, Permission permission){
+		setEvent(event);
+		setUser(user);
+		setPermission(permission);
+	}
 
 	@Override
 	public int hashCode() {

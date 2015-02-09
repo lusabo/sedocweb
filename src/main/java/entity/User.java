@@ -74,6 +74,10 @@ public class User implements Principal, Serializable {
 
 	public User() {
 	}
+	
+	public User(Integer id){
+		setId(id);
+	}
 
 	public User(Integer id, String username, String password, String name, String initials, boolean active,
 			String activationToken) {
