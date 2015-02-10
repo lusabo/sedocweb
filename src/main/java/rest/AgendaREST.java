@@ -10,8 +10,10 @@ import java.util.List;
 
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -27,6 +29,13 @@ import entity.Permission;
 
 @Path("agenda")
 public class AgendaREST {
+
+	@GET
+	@LoggedIn
+	@Produces("application/json")
+	public AgendaData load() throws Exception {
+		return new AgendaData();
+	}
 
 	@POST
 	@LoggedIn
