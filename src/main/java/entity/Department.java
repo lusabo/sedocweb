@@ -1,6 +1,5 @@
 package entity;
 
-import static javax.persistence.EnumType.STRING;
 import static javax.persistence.GenerationType.SEQUENCE;
 import static util.Constants.ABBREVIATION_SIZE;
 import static util.Constants.NAME_SIZE;
@@ -9,7 +8,6 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;

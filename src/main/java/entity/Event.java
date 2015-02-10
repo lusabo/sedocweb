@@ -1,9 +1,11 @@
 package entity;
 
 import static javax.persistence.GenerationType.SEQUENCE;
+import static javax.persistence.TemporalType.DATE;
 import static util.Constants.NAME_SIZE;
 
 import java.io.Serializable;
+import java.sql.Time;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -13,7 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.Index;
@@ -40,17 +42,29 @@ public class Event implements Serializable {
 	@Column(name = "DESCRIPTION", columnDefinition = "TEXT")
 	private String description;
 
-	@NotBlank
-	@Column(name = "START")
-	@Temporal(TemporalType.TIMESTAMP)
-	@Index(name = "IDX_EVENT_START")
-	private Date start;
+	@NotNull
+	@Column(name = "DATE_START")
+	@Temporal(DATE)
+	@Index(name = "IDX_EVENT_DATESTART")
+	private Date dateStart;
 
-	@NotBlank
-	@Column(name = "FINISH")
-	@Temporal(TemporalType.TIMESTAMP)
-	@Index(name = "IDX_EVENT_FINISH")
-	private Date finish;
+	@Column(name = "TIME_START")
+	@Index(name = "IDX_EVENT_TIMESTART")
+	private Time timeStart;
+
+	@NotNull
+	@Column(name = "DATE_FINISH")
+	@Temporal(DATE)
+	@Index(name = "IDX_EVENT_DATEFINISH")
+	private Date dateFinish;
+
+	@Column(name = "TIME_FINISH")
+	@Index(name = "IDX_EVENT_TIMEFINISH")
+	private Time timeFinish;
+
+	@Column(name = "ALLDAY", nullable = false)
+	@Index(name = "IDX_EVENT_ALLDAY")
+	private boolean allDay = false;
 
 	@Override
 	public int hashCode() {
@@ -101,20 +115,44 @@ public class Event implements Serializable {
 		this.description = description;
 	}
 
-	public Date getStart() {
-		return start;
+	public Date getDateStart() {
+		return dateStart;
 	}
 
-	public void setStart(Date start) {
-		this.start = start;
+	public void setDateStart(Date dateStart) {
+		this.dateStart = dateStart;
 	}
 
-	public Date getFinish() {
-		return finish;
+	public Date getTimeStart() {
+		return timeStart;
 	}
 
-	public void setFinish(Date finish) {
-		this.finish = finish;
+	public void setTimeStart(Time timeStart) {
+		this.timeStart = timeStart;
+	}
+
+	public Date getDateFinish() {
+		return dateFinish;
+	}
+
+	public void setDateFinish(Date dateFinish) {
+		this.dateFinish = dateFinish;
+	}
+
+	public Date getTimeFinish() {
+		return timeFinish;
+	}
+
+	public void setTimeFinish(Time timeFinish) {
+		this.timeFinish = timeFinish;
+	}
+
+	public boolean isAllDay() {
+		return allDay;
+	}
+
+	public void setAllDay(boolean allDay) {
+		this.allDay = allDay;
 	}
 
 }

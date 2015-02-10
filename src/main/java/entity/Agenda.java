@@ -12,11 +12,9 @@ import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.ForeignKey;
-import org.hibernate.validator.constraints.NotBlank;
-
-import adventure.util.PendencyCount;
 
 @Entity
 @IdClass(AgendaPk.class)
@@ -37,16 +35,10 @@ public class Agenda implements Serializable {
 	@ForeignKey(name = "FK_AGENDA_USER")
 	private User user;
 
-	@NotBlank
-	@Column(name = "PERMISSION", length = 1)
+	@NotNull
+	@Column(name = "PERMISSION", length = 5)
 	@Enumerated(STRING)
 	private Permission permission;
-	
-	public Agenda(Event event, User user, Permission permission){
-		setEvent(event);
-		setUser(user);
-		setPermission(permission);
-	}
 
 	@Override
 	public int hashCode() {

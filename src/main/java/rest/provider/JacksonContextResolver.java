@@ -2,6 +2,7 @@ package rest.provider;
 
 import static org.codehaus.jackson.map.SerializationConfig.Feature.FAIL_ON_EMPTY_BEANS;
 import static org.codehaus.jackson.map.SerializationConfig.Feature.INDENT_OUTPUT;
+import static org.codehaus.jackson.map.SerializationConfig.Feature.WRITE_DATES_AS_TIMESTAMPS;
 import static org.codehaus.jackson.map.SerializationConfig.Feature.WRITE_EMPTY_JSON_ARRAYS;
 import static org.codehaus.jackson.map.SerializationConfig.Feature.WRITE_ENUMS_USING_TO_STRING;
 import static org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion.NON_NULL;

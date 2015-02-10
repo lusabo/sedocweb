@@ -5,12 +5,18 @@ import javax.persistence.TypedQuery;
 
 import br.gov.frameworkdemoiselle.template.JPACrud;
 import br.gov.frameworkdemoiselle.transaction.Transactional;
+import br.gov.frameworkdemoiselle.util.Beans;
 import entity.User;
 
 @Transactional
 public class UserDAO extends JPACrud<User, Integer> {
 
 	private static final long serialVersionUID = 1L;
+	
+	public static UserDAO getInstance() {
+		return Beans.getReference(UserDAO.class);
+	}
+
 
 	// @Override
 	// public User insert(User user) {
