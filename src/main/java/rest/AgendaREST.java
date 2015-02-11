@@ -4,7 +4,7 @@
 
 package rest;
 
-import java.sql.Time;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -26,6 +26,7 @@ import br.gov.frameworkdemoiselle.util.ValidatePayload;
 import entity.Agenda;
 import entity.Event;
 import entity.Permission;
+import entity.User;
 
 @Path("agenda")
 public class AgendaREST {
@@ -33,8 +34,23 @@ public class AgendaREST {
 	@GET
 	@LoggedIn
 	@Produces("application/json")
-	public AgendaData load() throws Exception {
-		return new AgendaData();
+	public List<AgendaData> load() throws Exception {
+
+		List<Agenda> agendas = AgendaDAO.getInstance().find(User.getLoggedIn());
+		List<AgendaData> agendasData = new ArrayList<AgendaData>();
+
+		for (Agenda agenda : agendas) {
+			AgendaData agendaData = new AgendaData();
+			agendaData.id = agenda.getEvent().getId();
+			agendaData.title = agenda.getEvent().getTitle();
+			agendaData.description = agenda.getEvent().getDescription();
+			agendaData.start = agenda.getEvent().getStart();
+			agendaData.finish = agenda.getEvent().getFinish();
+			agendasData.add(agendaData);
+		}
+
+		return agendasData;
+
 	}
 
 	@POST
@@ -47,20 +63,8 @@ public class AgendaREST {
 		Event event = new Event();
 		event.setTitle(data.title);
 		event.setDescription(data.description);
-		event.setDateStart(data.dateStart);
-		event.setDateFinish(data.dateFinish);
-
-		if (data.timeStart != null) {
-			event.setTimeStart(data.timeStart);
-		}
-
-		if (data.timeFinish != null) {
-			event.setTimeFinish(data.timeFinish);
-		}
-
-		if (data.allDay != null) {
-			event.setAllDay(data.allDay);
-		}
+		event.setStart(data.start);
+		event.setFinish(data.finish);
 
 		EventDAO.getInstance().insert(event);
 
@@ -76,22 +80,18 @@ public class AgendaREST {
 
 	public static class AgendaData {
 
+		public Integer id;
+
 		@NotEmpty
 		public String title;
 
 		public String description;
 
-		public Boolean allDay;
+		@NotNull
+		public Date start;
 
 		@NotNull
-		public Date dateStart;
-
-		public Time timeStart;
-
-		@NotNull
-		public Date dateFinish;
-
-		public Time timeFinish;
+		public Date finish;
 
 		@NotEmpty
 		public List<UserPermission> permissions;

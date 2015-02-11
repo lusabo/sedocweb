@@ -1,25 +1,34 @@
 $(function() {
 
 	$('#calendar').fullCalendar({
-		header: {
-			left: 'prev,next today',
-			center: 'title',
-			right: 'month,basicWeek,basicDay'
+		header : {
+			left : 'prev,next today',
+			center : 'title',
+			right : 'month,agendaWeek,agendaDay'
 		},
-		lang: 'pt-br',
-		height: 'auto',
-		defaultDate: '2015-02-07',
-		events: [
-					{
-						title: 'Aniversário de Paulo',
-						start: '2015-02-19'
-					},
-					{
-						title: 'Treinamento',
-						start: '2015-02-02',
-						end: '2015-02-06'
+		lang : 'pt-br',
+		height : 'auto',
+		defaultDate : moment().format('YYYY-MM-DD'),
+		events : function(start, end, timezone, callback) {
+
+			AgendaProxy.load().done(function(data) {
+				var arrEvents = [];
+				$.each(data, function(i, event) {
+					if (event.start.split(" ")[1] === "00:00:00" && event.finish.split(" ")[1] === "00:00:00") {
+						event.start = event.start.split(" ")[0];
+						event.finish = event.finish.split(" ")[0];
 					}
-				]
-	});	
+					arrEvents.push({
+						id : event.id,
+						title : event.title,
+						start : event.start,
+						end : event.finish
+					});
+				});
+				callback(arrEvents);
+			});
+
+		}
+	});
 
 });

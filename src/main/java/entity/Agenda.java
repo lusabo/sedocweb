@@ -3,6 +3,7 @@ package entity;
 import static javax.persistence.EnumType.STRING;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -39,6 +40,20 @@ public class Agenda implements Serializable {
 	@Column(name = "PERMISSION", length = 5)
 	@Enumerated(STRING)
 	private Permission permission;
+
+	public Agenda() {
+	}
+
+	public Agenda(Integer eventId, String eventTitle, String eventDescription, Date eventStart, Date eventFinish,
+			Permission permission) {
+		setEvent(new Event());
+		getEvent().setId(eventId);
+		getEvent().setTitle(eventTitle);
+		getEvent().setDescription(eventDescription);
+		getEvent().setStart(eventStart);
+		getEvent().setFinish(eventFinish);
+		setPermission(permission);
+	}
 
 	@Override
 	public int hashCode() {
