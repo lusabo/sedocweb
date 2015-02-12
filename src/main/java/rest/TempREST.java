@@ -17,6 +17,7 @@ public class TempREST {
 	@Transactional
 	public void load() throws Exception {
 		newUser("admin", "admin", "Administrador", "adm", true);
+		newUser("luciano", "luciano", "Luciano", "lsb", true);
 	}
 
 	private User newUser(String username, String password, String name, String initials, boolean active) {

@@ -34,19 +34,19 @@ public class Authenticator extends TokenAuthenticator {
 	}
 
 	private boolean isUserLogin(User user, Credentials credentials) {
-		return doesConfirmationTokenMatch(user) || doesPasswordMatch(user, credentials);
+		return doesPasswordMatch(user, credentials);
 	}
 
-	private boolean doesConfirmationTokenMatch(User user) {
-		boolean result = false;
-		if (user.getActivationToken() != null) {
-			ActivationSession session = Beans.getReference(ActivationSession.class);
-			String hash = Passwords.hash(session.getToken(), user.getUsername());
-			result = user.getActivationToken().equals(hash);
-		}
-
-		return result;
-	}
+//	private boolean doesConfirmationTokenMatch(User user) {
+//		boolean result = false;
+//		if (user.getActivationToken() != null) {
+//			ActivationSession session = Beans.getReference(ActivationSession.class);
+//			String hash = Passwords.hash(session.getToken(), user.getUsername());
+//			result = user.getActivationToken().equals(hash);
+//		}
+//
+//		return result;
+//	}
 
 	private boolean doesPasswordMatch(User user, Credentials credentials) {
 		boolean result = false;

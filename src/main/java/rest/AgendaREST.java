@@ -1,7 +1,3 @@
-/** TODO 
- *	Como verificar se allDay não for nulo e vier os horários a melhor forma de desconsiderar.  	
- */
-
 package rest;
 
 import java.util.ArrayList;
@@ -15,6 +11,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import persistence.AgendaDAO;
@@ -25,7 +22,7 @@ import br.gov.frameworkdemoiselle.transaction.Transactional;
 import br.gov.frameworkdemoiselle.util.ValidatePayload;
 import entity.Agenda;
 import entity.Event;
-import entity.Permission;
+import entity.PermissionType;
 import entity.User;
 
 @Path("agenda")
@@ -35,22 +32,26 @@ public class AgendaREST {
 	@LoggedIn
 	@Produces("application/json")
 	public List<AgendaData> load() throws Exception {
+		User user = User.getLoggedIn();
 
-		List<Agenda> agendas = AgendaDAO.getInstance().find(User.getLoggedIn());
+		List<Agenda> agendas = AgendaDAO.getInstance().find(user);
 		List<AgendaData> agendasData = new ArrayList<AgendaData>();
 
 		for (Agenda agenda : agendas) {
 			AgendaData agendaData = new AgendaData();
+
 			agendaData.id = agenda.getEvent().getId();
 			agendaData.title = agenda.getEvent().getTitle();
 			agendaData.description = agenda.getEvent().getDescription();
 			agendaData.start = agenda.getEvent().getStart();
 			agendaData.finish = agenda.getEvent().getFinish();
+			agendaData.user = agenda.getUser();
+			agendaData.permissionType = agenda.getPermissionType();
+
 			agendasData.add(agendaData);
 		}
 
 		return agendasData;
-
 	}
 
 	@POST
@@ -68,14 +69,14 @@ public class AgendaREST {
 
 		EventDAO.getInstance().insert(event);
 
-		for (UserPermission userPermission : data.permissions) {
-			Agenda agenda = new Agenda();
-			agenda.setEvent(event);
-			agenda.setPermission(userPermission.permission);
-			agenda.setUser(UserDAO.getInstance().load(userPermission.user));
-			AgendaDAO.getInstance().insert(agenda);
-		}
+		User user = UserDAO.getInstance().load(data.user.getId());
+		
+		Agenda agenda = new Agenda();
+		agenda.setEvent(event);
+		agenda.setUser(user);
+		agenda.setPermissionType(data.permissionType);
 
+		AgendaDAO.getInstance().insert(agenda);
 	}
 
 	public static class AgendaData {
@@ -93,19 +94,11 @@ public class AgendaREST {
 		@NotNull
 		public Date finish;
 
-		@NotEmpty
-		public List<UserPermission> permissions;
-
-	}
-
-	public static class UserPermission {
+		@NotNull
+		public User user;
 
 		@NotNull
-		public Integer user;
-
-		@NotNull
-		public Permission permission;
+		public PermissionType permissionType;
 
 	}
-
 }

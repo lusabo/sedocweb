@@ -63,11 +63,6 @@ public class User implements Principal, Serializable {
 	@Index(name = "IDX_USER_ACTIVE")
 	private boolean active = true;
 
-	@JsonIgnore
-	@Size(max = HASH_SIZE)
-	@Column(name = "ACTIVATION_TOKEN")
-	private String activationToken;
-
 	/*
 	 * Adicionar coluna de setor
 	 */
@@ -79,15 +74,13 @@ public class User implements Principal, Serializable {
 		setId(id);
 	}
 
-	public User(Integer id, String username, String password, String name, String initials, boolean active,
-			String activationToken) {
+	public User(Integer id, String username, String password, String name, String initials, boolean active) {
 		setId(id);
 		setUsername(username);
 		setPassword(password);
 		setName(name);
 		setInitials(initials);
 		setActive(active);
-		setActivationToken(activationToken);
 	}
 
 	public static User getLoggedIn() {
@@ -135,6 +128,7 @@ public class User implements Principal, Serializable {
 		this.username = username;
 	}
 
+	@JsonIgnore
 	public String getPassword() {
 		return password;
 	}
@@ -165,14 +159,6 @@ public class User implements Principal, Serializable {
 
 	public void setActive(Boolean active) {
 		this.active = active;
-	}
-
-	public String getActivationToken() {
-		return activationToken;
-	}
-
-	public void setActivationToken(String activationToken) {
-		this.activationToken = activationToken;
 	}
 
 }

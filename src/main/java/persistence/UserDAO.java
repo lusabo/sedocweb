@@ -42,8 +42,7 @@ public class UserDAO extends JPACrud<User, Integer> {
 		jpql.append("        u.password, ");
 		jpql.append("        u.name, ");
 		jpql.append("        u.initials, ");
-		jpql.append("        u.active, ");
-		jpql.append("        u.activationToken ");
+		jpql.append("        u.active ");
 		jpql.append(" 	     ) ");
 		jpql.append("   from User u");
 		jpql.append("  where u.username = :username ");

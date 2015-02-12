@@ -37,22 +37,23 @@ public class Agenda implements Serializable {
 	private User user;
 
 	@NotNull
-	@Column(name = "PERMISSION", length = 5)
+	@Column(name = "PERMISSION_TYPE", length = 5)
 	@Enumerated(STRING)
-	private Permission permission;
+	private PermissionType permissionType;
 
 	public Agenda() {
 	}
 
 	public Agenda(Integer eventId, String eventTitle, String eventDescription, Date eventStart, Date eventFinish,
-			Permission permission) {
+			User user, PermissionType permissionType) {
 		setEvent(new Event());
 		getEvent().setId(eventId);
 		getEvent().setTitle(eventTitle);
 		getEvent().setDescription(eventDescription);
 		getEvent().setStart(eventStart);
 		getEvent().setFinish(eventFinish);
-		setPermission(permission);
+		setUser(user);
+		setPermissionType(permissionType);
 	}
 
 	@Override
@@ -102,12 +103,12 @@ public class Agenda implements Serializable {
 		this.user = user;
 	}
 
-	public Permission getPermission() {
-		return permission;
+	public PermissionType getPermissionType() {
+		return permissionType;
 	}
 
-	public void setPermission(Permission permission) {
-		this.permission = permission;
+	public void setPermissionType(PermissionType permissionType) {
+		this.permissionType = permissionType;
 	}
 
 }

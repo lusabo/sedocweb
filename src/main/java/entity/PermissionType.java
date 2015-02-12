@@ -3,13 +3,13 @@ package entity;
 import org.codehaus.jackson.annotate.JsonCreator;
 import org.codehaus.jackson.annotate.JsonValue;
 
-public enum Permission {
+public enum PermissionType {
 
 	READ("R"), WRITE("W");
 
 	private final String value;
 
-	Permission(String value) {
+	PermissionType(String value) {
 		this.value = value;
 	}
 
@@ -19,12 +19,12 @@ public enum Permission {
 	}
 
 	@JsonCreator
-	public static Permission fromValue(String value) {
-		Permission result = null;
+	public static PermissionType fromValue(String value) {
+		PermissionType result = null;
 
-		for (Permission permission : values()) {
-			if (permission.toString().equalsIgnoreCase(value)) {
-				result = permission;
+		for (PermissionType permissionType : values()) {
+			if (permissionType.toString().equalsIgnoreCase(value)) {
+				result = permissionType;
 				break;
 			}
 		}

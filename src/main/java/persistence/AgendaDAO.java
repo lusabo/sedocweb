@@ -38,7 +38,8 @@ public class AgendaDAO implements Serializable {
 		jpql.append("        e.description, ");
 		jpql.append("        e.start, ");
 		jpql.append("        e.finish, ");
-		jpql.append("        a.permission ");
+		jpql.append("        a.user, ");
+		jpql.append("        a.permissionType ");
 		jpql.append("    ) ");
 		jpql.append("   from Agenda a ");
 		jpql.append("   join a.event e ");
