@@ -38,12 +38,13 @@ public class AgendaDAO implements Serializable {
 		jpql.append("        e.description, ");
 		jpql.append("        e.start, ");
 		jpql.append("        e.finish, ");
-		jpql.append("        a.user, ");
+		jpql.append("        u.id, ");
 		jpql.append("        a.permissionType ");
 		jpql.append("    ) ");
 		jpql.append("   from Agenda a ");
 		jpql.append("   join a.event e ");
-		jpql.append("  where a.user = :user ");
+		jpql.append("   join a.user u ");
+		jpql.append("  where u = :user ");
 
 		TypedQuery<Agenda> query = em.createQuery(jpql.toString(), Agenda.class);
 		query.setParameter("user", user);

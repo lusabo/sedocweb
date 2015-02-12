@@ -45,14 +45,14 @@ public class Agenda implements Serializable {
 	}
 
 	public Agenda(Integer eventId, String eventTitle, String eventDescription, Date eventStart, Date eventFinish,
-			User user, PermissionType permissionType) {
+			Integer userId, PermissionType permissionType) {
 		setEvent(new Event());
 		getEvent().setId(eventId);
 		getEvent().setTitle(eventTitle);
 		getEvent().setDescription(eventDescription);
 		getEvent().setStart(eventStart);
 		getEvent().setFinish(eventFinish);
-		setUser(user);
+		setUser(new User(userId));
 		setPermissionType(permissionType);
 	}
 
