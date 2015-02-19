@@ -3,6 +3,13 @@ var App = {
 	tokenKey : "Token",
 
 	userKey : "User",
+	
+	loadMenu : function(){
+	    var link = document.querySelector('link[rel="import"]');
+	    var template = link.import.querySelector('template');
+	    var clone = document.importNode(template.content, true);
+	    $("body").prepend(clone);
+	},
 
 //	savedLocationKey : "Saved Location",
 //

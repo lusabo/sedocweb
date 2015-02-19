@@ -18,6 +18,16 @@
 		<from>^/home$</from>
 		<to>/home.html</to>
 	</rule>
+	
+	<rule>
+		<from>^/cargo$</from>
+		<to>/jobtitle-list.html</to>
+	</rule>
+	
+	<rule>
+		<from>^/cargo/novo$</from>
+		<to>/jobtitle-edit.html</to>
+	</rule>	
 
 	<rule>
 		<from>^/(.+)/$</from>

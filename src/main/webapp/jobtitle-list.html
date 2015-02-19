@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>SedocWeb 2.0</title>
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="css/jquery.dynatable.css">
+<link rel="import" href="menu.html">
+<style>
+body {
+	font-family: 'Lato', sans-serif;
+	margin-top: 70px;
+}
+</style>
+</head>
+<body>
+	<div class="container">
+		<form>
+			<fieldset>
+				<legend>Cadastro de Cargos</legend>
+			</fieldset>
+			<div class="row">
+				<div class="col-md-4">
+					<div class="form-group">
+						<label for="filter">Filtro</label>
+						<input id="filter" type="text" class="form-control" required="required">
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="form-group">
+						<div class="checkbox">
+							<label class="checkbox">
+								<input id="showInactive" type="checkbox" value="true">
+								Mostrar inativos
+							</label>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="form-group">
+						<button id="search" type="submit" class="btn btn-primary">Buscar</button>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<table id="tb-cargo" class="table table-bordered">
+						<thead>
+							<tr class="active">
+								<th>Id</th>
+								<th data-dynatable-column="name">Nome</th>
+								<th data-dynatable-column="active">Ativo</th>
+							</tr>
+						</thead>
+					</table>
+				</div>
+			</div>
+		</form>
+	</div>
+
+	<!-- lib's -->
+	<script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+	<script src="https://cdn.datatables.net/1.10.5/js/jquery.dataTables.min.js"></script>
+	<script src="js/lib/jquery.dynatable.js"></script>
+
+	<!-- proxy -->
+	<script src="js/proxy/jobtitle.js"></script>
+
+	<!-- controller -->
+	<script src="js/controller/app.js"></script>
+	<script src="js/controller/jobtitle.js"></script>
+</body>
+</html>

@@ -1,4 +1,6 @@
 $(function() {
+	
+	App.loadMenu();
 
 	$('#calendar').fullCalendar({
 		header : {
